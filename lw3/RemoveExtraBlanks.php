@@ -1,2 +1,3 @@
 <?php
-  var_dump($_GET);
+    header("Content-Type: text/plain");
+    echo $_GET["text"];
