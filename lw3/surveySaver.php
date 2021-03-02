@@ -25,6 +25,7 @@
             echo "Err with writing info to '$email.txt'";
             exit; 
         }
+        fclose($fp);
     }
     else
     {
