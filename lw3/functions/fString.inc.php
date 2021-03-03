@@ -17,8 +17,10 @@
         {
             if(getPosInLine($chekedCharString, $pass[$i]) === null)
             {
-                substr_count($pass, $pass[$i]) === 1 ? : 
-                $result += substr_count($pass, $pass[$i]);
+                if(substr_count($pass, $pass[$i]) !== 1)
+                {
+                    $result += substr_count($pass, $pass[$i]);
+                }
                 
                 $chekedCharString = $chekedCharString."$pass[$i]";
             }

@@ -18,13 +18,19 @@
         
         for($i = 0; $i <= $size - 1; $i++)
         {
-            getPosInLine($stringOfNumber, $password[$i]) === null ? :  $passStrength += 4;
+            if(getPosInLine($stringOfNumber, $password[$i]) !== null)
+            {   
+                $passStrength += 4;
+            }
         };
         
         $countOfApperLetter = 0;
         for($i = 0; $i <= $size - 1; $i++)
         {
-            getPosInLine($stringOfLaterENGa, $password[$i]) === null ? :  $countOfApperLetter++;
+            if(getPosInLine($stringOfLaterENGa, $password[$i]) !== null)
+            {
+                $countOfApperLetter++;
+            }
         };
         
         $countOfApperLetter === 0 ? : 
@@ -33,15 +39,28 @@
         $countOfLowerLetter = 0;
         for($i = 0; $i <= $size - 1; $i++)
         {
-            getPosInLine($stringOfLaterENGl, $password[$i]) === null ? :  $countOfLowerLetter++;
+            if(getPosInLine($stringOfLaterENGl, $password[$i]) !== null)
+            {
+                $countOfLowerLetter++;
+            }
         };
         
-        $countOfLowerLetter === 0 ? : 
-        $passStrength += ($size - $countOfLowerLetter)*2; 
+        if($countOfLowerLetter !== 0)
+        {
+            $passStrength += ($size - $countOfLowerLetter)*2; 
+        }
         
         $coutOfLetter = $countOfLowerLetter + $countOfApperLetter;
-        $size - $coutOfLetter !== 0 ? : $passStrength -= $coutOfLetter;
-        $coutOfLetter !== 0 ? : $passStrength -= $size;
+        
+        if($size - $coutOfLetter === 0)
+        {
+            $passStrength -= $coutOfLetter;
+        }
+        
+        if($coutOfLetter === 0) 
+        {
+            $passStrength -= $size;
+        }
         
         $passStrength -= getCoutOfRepeatInString($password);
 
