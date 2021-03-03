@@ -17,7 +17,7 @@
         }
         else
         {
-            for($i = 1; $i <= strlen($identifier)-1; $i++)
+            for($i = 1; $i <= strlen($identifier) - 1; $i++)
             {
                 if(getPosInLine($stringOfLaterENGl, strtolower($identifier[$i])) === null && 
                   getPosInLine($stringOfNumber, $identifier[$i]) === null)

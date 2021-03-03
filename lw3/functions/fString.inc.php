@@ -13,7 +13,7 @@
         $result = 0;
         $chekedCharString = "";
         
-        for($i = 0; $i <= strlen($pass)-1; $i++)
+        for($i = 0; $i <= strlen($pass) - 1; $i++)
         {
             if(getPosInLine($chekedCharString, $pass[$i]) === null)
             {

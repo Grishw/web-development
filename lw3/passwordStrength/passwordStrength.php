@@ -16,13 +16,13 @@
         
         $passStrength += 4*$size;
         
-        for($i = 0; $i <= $size-1; $i++)
+        for($i = 0; $i <= $size - 1; $i++)
         {
             getPosInLine($stringOfNumber, $password[$i]) === null ? :  $passStrength += 4;
         };
         
         $countOfApperLetter = 0;
-        for($i = 0; $i <= $size-1; $i++)
+        for($i = 0; $i <= $size - 1; $i++)
         {
             getPosInLine($stringOfLaterENGa, $password[$i]) === null ? :  $countOfApperLetter++;
         };
@@ -31,7 +31,7 @@
         $passStrength += ($size - $countOfApperLetter)*2;
         
         $countOfLowerLetter = 0;
-        for($i = 0; $i <= $size-1; $i++)
+        for($i = 0; $i <= $size - 1; $i++)
         {
             getPosInLine($stringOfLaterENGl, $password[$i]) === null ? :  $countOfLowerLetter++;
         };

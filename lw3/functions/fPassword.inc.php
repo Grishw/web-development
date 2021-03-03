@@ -6,7 +6,7 @@
     {
         $result = TRUE;
         
-        for($i = 0; $i <= strlen($pass)-1; $i++)
+        for($i = 0; $i <= strlen($pass) - 1; $i++)
         {
             
             if(getPosInLine($charSring, $pass[$i]) === null)

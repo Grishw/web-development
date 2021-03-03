@@ -6,7 +6,7 @@
     if($text !== null)
     {
         $text = trim($text);
-        $text = preg_replace('/\s\s+/',' ',$text);
+        $text = preg_replace('/\s\s+/', ' ', $text);
         echo $text;
     }
     else
