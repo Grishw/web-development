@@ -1,13 +1,13 @@
 <?php
     header("Content-Type: text/plain");
-    require_once('function.inc.php');
+    require_once('../functions/function.inc.php');
 
     $email = getGETParam("email") === null ? "-" : getGETParam("email");
 
     if($email !== "-")
     {
         
-        $fp = "data/$email.txt";
+        $fp = "../data/$email.txt";
         
         if (file_exists($fp))
         {

@@ -1,6 +1,6 @@
 <?php
     header("Content-Type: text/plain");
-    require_once('function.inc.php');
+    require_once('../functions/function.inc.php');
 
     $identifier = getGETParam("identifier");
     $isIdentif = "yes";
@@ -9,7 +9,7 @@
     {
         $isIdentif = "no - No identifier here";
     }
-    else
+    else if($identifier !== '')
     {       
         if(getPosInLine($stringOfLaterENGl, strtolower($identifier[0])) === null)
         {
@@ -29,6 +29,10 @@
             
         }
 
+    }
+    else
+    {
+        $isIdentif = "no - identifier is empty";
     }
     echo $isIdentif;
     

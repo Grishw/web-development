@@ -1,6 +1,6 @@
 <?php
     header("Content-Type: text/plain");
-    require_once('function.inc.php');
+    require_once('../functions/function.inc.php');
 
     $password = getGETParam("password");
 
@@ -46,7 +46,7 @@
         $passStrength -= getCoutOfRepeatInString($password);
 
         
-        echo "Pass power for $password = ".$passStrength;
+        echo "Pass power for '$password' = ".$passStrength;
     }
     else
     {
