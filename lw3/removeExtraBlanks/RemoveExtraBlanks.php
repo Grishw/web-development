@@ -1,6 +1,6 @@
 <?php
     header("Content-Type: text/plain");
-    require_once('../functions/function.inc.php');
+    require_once('../functions/fGET.inc.php');
 
     $text = getGETParam("text");
     if($text !== null)

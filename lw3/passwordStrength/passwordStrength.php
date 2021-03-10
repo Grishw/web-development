@@ -18,7 +18,8 @@
         
         for($i = 0; $i <= $size - 1; $i++)
         {
-            if(getPosInLine($stringOfNumber, $password[$i]) !== null)
+            if((10 > ord($identifier[$i]) && 
+                      ord($identifier[$i]) > -1))
             {   
                 $passStrength += 4;
             }
@@ -33,8 +34,10 @@
             }
         };
         
-        $countOfApperLetter === 0 ? : 
-        $passStrength += ($size - $countOfApperLetter)*2;
+        if($countOfApperLetter !== 0) 
+        {
+            $passStrength += ($size - $countOfApperLetter)*2;
+        }
         
         $countOfLowerLetter = 0;
         for($i = 0; $i <= $size - 1; $i++)

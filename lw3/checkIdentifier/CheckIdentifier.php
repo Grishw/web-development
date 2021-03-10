@@ -3,36 +3,38 @@
     require_once('../functions/function.inc.php');
 
     $identifier = getGETParam("identifier");
-    $isIdentif = "yes";
+    $result = "yes";
 
     if($identifier === null)
     {
-        $isIdentif = "no - No identifier here";
+        $result = "no - No identifier here";
     }
     else if($identifier !== '')
     {       
-        if(getPosInLine($stringOfLaterENGl, strtolower($identifier[0])) === null)
-        {
-            $isIdentif = "no - First char is not a lettar from latin Alphabet";
-        }
-        else
+        if(123 > ord(strtolower($identifier[0])) && 
+                ord(strtolower($identifier[0])) > 96)
         {
             for($i = 1; $i <= strlen($identifier) - 1; $i++)
             {
-                if(getPosInLine($stringOfLaterENGl, strtolower($identifier[$i])) === null && 
-                  getPosInLine($stringOfNumber, $identifier[$i]) === null)
+                if(!(10 > ord($identifier[$i]) && 
+                          ord($identifier[$i]) > -1) &&  
+                  !(123 > ord(strtolower($identifier[$i])) && 
+                          ord(strtolower($identifier[$i])) > 95))
                 {
-                    $isIdentif = "no - '$identifier[$i]' not from allowed list of char";
+                    $result = "no - '$identifier[$i]' not from allowed list of char";
                     break;
                 }
-            };
+            }
             
+        }
+        else
+        {
+           $result = "no - First char is not a lettar from latin Alphabet";          
         }
 
     }
     else
     {
-        $isIdentif = "no - identifier is empty";
+        $result = "no - GET[identifier] is empty";
     }
-    echo $isIdentif;
-    
+    echo $result;
