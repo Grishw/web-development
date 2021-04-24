@@ -501,9 +501,11 @@
 }
 
 .form-element-inputcase
-{ 
-margin-top: 3px;  
-} 
+{
+  display: flex;
+  justify-content:flex-start;
+  flex-wrap: nowrap;
+}
 
 .form-element-inputcase__input_2
 { 
