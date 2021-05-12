@@ -170,7 +170,7 @@
 .main
 {
   width: 1200px;
-  height: 670px;
+  height: auto;
 }
 
 .main_position
@@ -339,9 +339,10 @@
   border-radius: 5px; 
   height: 190px;
   width: 285px;
-  background: url("../images/muvie_1.png");
+  background: url("../images/muvie_common.png");
   margin: 0 0 23px 0;
 }
+
 .filmblock-list-item__text
 { 
   font: normal 16px/28px "Georgia", sans-serif; 
@@ -362,6 +363,38 @@
   height: 51px;
   margin-top: 50px; 
   margin: 0 auto;
+}
+
+.filmblock__arrow_left,
+.filmblock__arrow_right
+{
+  content: '';
+  display: block;
+  border-radius: 100px;
+  background-color: #15a98c;
+  width: 70px;
+  height: 70px;
+  
+}
+
+.filmblock__arrow_left
+{
+  float: left;
+  margin-top: 145px;
+  margin-left: -110px;
+}
+
+.filmblock__arrow_right
+{
+  float: right;
+  margin-top: 75px;
+  margin-right: -99px;
+}
+
+.filmblock__arrow_left:hover,
+.filmblock__arrow_right:hover
+{
+  background-color: #098d71;
 }
 
 .filmblock__button 
@@ -568,25 +601,29 @@
   color: #555555; 
 }
 
-.filmblock-list-item__image_1
+.filmblock-list-item__image_escapefromShoushenko
 {
-  background: url("../images/muvie_1.png");
+  background: no-repeat  url("../images/muvie_escapefromShoushenko.png");
 }
 
-.filmblock-list-item__image_2
+.filmblock-list-item__image_narcoz
 {
-  background: url("../images/muvie_2.png");
+  background: no-repeat  url("../images/muvie_narcoz.png");
 }
-.filmblock-list-item__image_3
+.filmblock-list-item__image_astral
 {
-  background: url("../images/muvie_3.png");
-}
-
-.filmblock-list-item__image_4
-{
-  background: url("../images/muvie_4.png");
+  background: no-repeat  url("../images/muvie_astral.png");
 }
 
+.filmblock-list-item__image_gravitacia
+{
+  background: no-repeat  url("../images/muvie_gravitacia.png");
+}
+
+.filmblock-list-item__image_avatar
+{
+  background: no-repeat url("../images/muvie_avatar.jpeg");
+}
 .form-element__text_important
 {
   font: normal 400 20px/32px "Open Sans", sans-serif; 
