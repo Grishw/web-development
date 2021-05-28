@@ -8,9 +8,16 @@ function createSliderPool(elemCount) {
     ['filmblock-list-item__image_avatar', 'Аватар', 'Бывший морпех Джейк Салли прикован к инвалидному креслу. Несмотря на немощное тело, Джейк в душе по-прежнему остается воином. Он получает задание совершить путешествие в несколько световых лет к базе землян на планете Пандора, где корпорации добывают редкий минерал, имеющий огромное значение для выхода Земли из энергетического кризиса.']
   ];
 
+  //console.log(elemCount);
   let list = [];
-
+  //console.log(list[0]);
+  //console.log('------------------------------------------------');
+  
   for (let n in sliderPoolInArr) {
+    //console.log(n);
+    //console.log(sliderPoolInArr[n]);
+    //console.log('||||');
+    
     let listElement = [];
     listElement[0] = 0;
     if (n < elemCount) {
@@ -22,6 +29,7 @@ function createSliderPool(elemCount) {
 
     list[n] = listElement;
   }
+  //console.log(list);
   return list;
 };
 
@@ -42,6 +50,7 @@ function addFilmToFilmBlock(elementArr) {
   element.innerHTML = '' + elementImgBlock + elementNameBlock + elementContentBlock;
   
   return element;
+  //console.log(element); 
 };
 
 function fillFilmblock(sliderPool) {
@@ -54,19 +63,23 @@ function fillFilmblock(sliderPool) {
 
 function run() { 
   parenElement = document.getElementsByClassName('filmblock-list').item(0);
+  //console.log(parenElement);
   activeElemCount = 4;
   activeElemRangeStart = 0;
   activeElemRangeEnd = activeElemCount-1;
-  
+  //console.log(activeElemCount);
   sliderPoolArr = createSliderPool(activeElemCount);
   countElementInRange = sliderPoolArr.length;
+  //console.log(sliderPoolArr);
   fillFilmblock(sliderPoolArr);
   
   sliderLeftArrow = document.getElementsByClassName('filmblock__arrow_left').item(0);
-
+  //console.log(sliderLeftArrow);
   sliderRightArrow = document.getElementsByClassName('filmblock__arrow_right').item(0);
   
+  
   sliderLeftArrow.addEventListener('click' , function () {
+    //console.log('start: S:'+activeElemRangeStart + ' E:' + activeElemRangeEnd);
     sliderPoolArr[activeElemRangeEnd][0] = 0;
     parenElement.removeChild(sliderPoolArr[activeElemRangeEnd][1]);
     activeElemRangeEnd = (activeElemRangeEnd-1) < 0 
@@ -81,9 +94,14 @@ function run() {
     sliderPoolArr[activeElemRangeStart][0] = 1;
     parenElement.prepend(sliderPoolArr[activeElemRangeStart][1]);
     
+    
+    //console.log('end: S:'+activeElemRangeStart + ' E:' + activeElemRangeEnd);
   } );
   
+  
+  
   sliderRightArrow.addEventListener('click' , function () {
+    //console.log('start: S:'+activeElemRangeStart + ' E:' + activeElemRangeEnd);
     sliderPoolArr[activeElemRangeStart][0] = 0;
     parenElement.removeChild(sliderPoolArr[activeElemRangeStart][1]);
     activeElemRangeStart = (activeElemRangeStart+1)%countElementInRange;
@@ -92,8 +110,14 @@ function run() {
     sliderPoolArr[activeElemRangeEnd][0] = 1;   
     parenElement.appendChild(sliderPoolArr[activeElemRangeEnd][1]);
 
+    //console.log('end: S:'+activeElemRangeStart + ' E:' + activeElemRangeEnd);
   } );
 }
 
-window.onload = run;
+window.onload = () => run();
 
+/* sliderPool[n][0]
+0 - don't display in filmblock
+1 - display in filmblock
+
+*/
