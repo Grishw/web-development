@@ -113,27 +113,22 @@ function leftSwipe (elementArr, rangeArr, statusArr, paramArr) {
 //debug
 function updateSliderElementMarginLeft(elementArr, statusArr, paramArr, rangeArr) {
   for (let n in elementArr) {
-    if (n <= statusArr[constants.ELEMENT_RANGE_START_ARR_INDEX] && n > statusArr[constants.ELEMENT_RANGE_START_ARR_INDEX] + rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX]) {
-      elementArr[n].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX] + "px";
-    };
-    
-    if (n < statusArr[constants.ELEMENT_RANGE_START_ARR_INDEX] ) { 
+    //console.log(n, '<=', rangeArr[constants.ELEMENT_RANGE_START_ARR_INDEX]
+     //          ,'/n', elementArr[n]);
+  
+    if (n < rangeArr[constants.ELEMENT_RANGE_START_ARR_INDEX] ) { 
       elementArr[n].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_ARR_INDEX] + "px";    
+    } else {
+      elementArr[n].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX] + "px"; 
     };
     
-    if (n > statusArr[constants.ELEMENT_RANGE_START_ARR_INDEX] + rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX] ) { 
-      elementArr[n].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX] + "px";    
-    };
-    
+    //console.log('/n', elementArr[n]);
   };
 };
 
 
 function setParam (rangeArr, paramArr) { 
-  console.log(window.innerWidth,
-             rangeArr[constants.ELEMENT_START_ARR_INDEX],
-             rangeArr[constants.ELEMENT_RANGE_START_ARR_INDEX],
-             rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX]);
+
   
   let windowWith = window.innerWidth;
   
@@ -170,6 +165,15 @@ function setParam (rangeArr, paramArr) {
   rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX] = countInRange;
   paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX] = marginLeftDefault;
   paramArr[constants.ELEMENT_MARGIN_LEFT_ARR_INDEX] = marginLeftInActive;
+  
+  /*console.log(window.innerWidth,
+             ' /start-',rangeArr[constants.ELEMENT_START_ARR_INDEX],
+             ' /rstart-',rangeArr[constants.ELEMENT_RANGE_START_ARR_INDEX],
+             ' /count-',rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX],
+             ' /margDef-',paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX],
+             ' /marg-',paramArr[constants.ELEMENT_MARGIN_LEFT_ARR_INDEX]
+             
+             );*/
 };
 
 function fillDefaultRangeArr(rangeArr) {
@@ -197,7 +201,7 @@ export function run (inData, countOfElement) {
   setParam(sliderElementRangeArr, sliderElementParamArr);
   
   
-  console.log(sliderElementRangeArr, sliderElementStatusArr);
+  //console.log(sliderElementRangeArr, sliderElementStatusArr);
   
   fillFilmblock(sliderPoolArr, sliderContainer, sliderElementRangeArr ,sliderElementStatusArr);
   
