@@ -31,7 +31,7 @@ function run() {
     let data = new FormData(this);
     data = Object.fromEntries(data);
     //console.log(data);
-    respons = doFetch('http://localhost:8080/formChecker.php', data);
+    respons = doFetch('http://localhost:8080/back/formChecker.php', data);
     console.log(respons);
   })
 
