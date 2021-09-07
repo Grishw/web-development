@@ -11,13 +11,13 @@ async function doFetch() {
     
   }
   
-  var url = 'http://127.0.0.1:62837/scripts/data.json';
+  var url = 'http://127.0.0.1:57110/scripts/data.json';
 
   const response = await fetch(url, headers);
   
   if (response.ok) {
     const json = await response.json();
-    sliderStart(json);
+    sliderStart(json, Object.keys(json).length);
   }
   
 }

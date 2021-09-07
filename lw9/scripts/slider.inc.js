@@ -1,26 +1,30 @@
 import * as constants from './const.js';
-console.log(constants.DESCTOP_ACTIVE_ELEMENT_COUNT); 
+//console.log(constants.ELEMENT_SIZE); 
 
-
-
-function createSliderPool (elemCount, sliderPoolInArr) {
+function createSliderPool (sliderPoolInArr, rangeArr, countOfElement) {
   let list = [];
-
+  let countOfDuplicateElement = rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX] - 1;
+  
   for (var element in sliderPoolInArr) {
-    let listElement = addFilmToFilmBlock(sliderPoolInArr[element], element);
-    //console.log(listElement);
+    //console.log(element);
+    let listElement = createListElement(sliderPoolInArr[element]);
     list[element] = listElement;
+    if (element <= countOfDuplicateElement) {
+      listElement = createListElement(sliderPoolInArr[element]);
+      list[element % 6 + countOfElement] = listElement;
+    };
   };
   
   return list;
 };
 
-function addFilmToFilmBlock (elementArr, n) {
+
+function createListElement (elementArr) {
   let element = document.createElement('div');
-  element.className = 'filmblock-list-item filmblock-list-item__' + n;
+  element.className = 'filmblock-list-item';
   
   let elementImg = elementArr['image'];
-  let elementImgBlock = '<div> <img src="' + elementImg + '" /> </div>';
+  let elementImgBlock = '<div> <img src="' + elementImg + '" width = 285px height = 190px/> </div>';
   
   let elementName = elementArr['name'];
   let elementNameBlock = '<span class="filmblock-list-item__name">' + elementName + '</span>';
@@ -33,81 +37,181 @@ function addFilmToFilmBlock (elementArr, n) {
   return element;
 };
 
-function fillFilmblock (sliderPool, sliderContainer, topBorder) {
+function fillFilmblock (sliderPool, sliderContainer, rangeArr, statusArr ) {
   for (let n in sliderPool) {
-    if (n <= topBorder) {
-      sliderContainer.appendChild(sliderPool[n]);
-    } 
-  }
+    sliderContainer.appendChild(sliderPool[n]);
+    
+    sliderPool[n].addEventListener('transitionend', () => transitionElement(sliderPool, rangeArr, statusArr));
+  };
 };
 
 //----------------------------------------------------------------------------------
-/*function leftSwipe () {
-    sliderPoolArr[activeElemRangeEnd][0] = 0;
-    sliderContainer.removeChild(sliderPoolArr[activeElemRangeEnd][1]);
-    activeElemRangeEnd = (activeElemRangeEnd-1) < 0 
-      ? countElementInRange-1 
-      : activeElemRangeEnd-1;
-      
-    if (activeElemRangeStart-1 < 0) {
-      activeElemRangeStart = countElementInRange - 1;
+function transitionElement (elementArr, rangeArr, statusArr) {
+  statusArr[constants.ELEMENT_ANIMATION_STATUS_ARR_INDEX] = constants.ANIMATION_END;
+  //console.log(statusArr[constants.ELEMENT_ANIMATION_STATUS_ARR_INDEX],'<');
+};
+
+
+function rightSwipe (elementArr, rangeArr, statusArr, paramArr) {
+  
+  if (statusArr[constants.ELEMENT_ANIMATION_STATUS_ARR_INDEX] == constants.ANIMATION_END) {
+    let iRangeArrStart = constants.ELEMENT_RANGE_START_ARR_INDEX;
+    let iElementArrEnd = rangeArr[iRangeArrStart] + rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX];
+    
+    //console.log('>',rangeArr[iRangeArrStart],iElementArrEnd);
+    
+    if (iElementArrEnd + 1 <= rangeArr[constants.ELEMENT_RANGE_END_ARR_INDEX]) {
+    
+      elementArr[rangeArr[iRangeArrStart]].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_ARR_INDEX] + "px";
+    
+      statusArr[constants.ELEMENT_ANIMATION_STATUS_ARR_INDEX] = constants.ANIMATION_ACTIVE;
+      rangeArr[iRangeArrStart] = rangeArr[iRangeArrStart] + 1;
     } else {
-      activeElemRangeStart = activeElemRangeStart - 1;
+      for (let n in elementArr) {
+        elementArr[n].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX] + "px";
+      }
+      rangeArr[iRangeArrStart] = constants.ELEMENT_RANGE_START;
     }
-    sliderPoolArr[activeElemRangeStart][0] = 1;
-    sliderContainer.prepend(sliderPoolArr[activeElemRangeStart][1]);
     
-  } 
 
-function rightSwipe () {
-    sliderPoolArr[activeElemRangeStart][0] = 0;
-    sliderContainer.removeChild(sliderPoolArr[activeElemRangeStart][1]);
-    activeElemRangeStart = (activeElemRangeStart+1)%countElementInRange;
-    
-    activeElemRangeEnd = (activeElemRangeEnd+1)%countElementInRange;
-    sliderPoolArr[activeElemRangeEnd][0] = 1;   
-    sliderContainer.appendChild(sliderPoolArr[activeElemRangeEnd][1]);
-  } 
-*/
-
-function leftSwipe (container, elementArr, elementRangStart, elementRangEnd) {
+  }
   
-  
-
-
- 
-  //container.removeChild(elementArr[elementRangEnd]);
 };
 
 
 
-
-
-
-function rightSwipe (container, elementArr, elementRangStart, elementRangEnd) {
+function leftSwipe (elementArr, rangeArr, statusArr, paramArr) {
   
+  if (statusArr[constants.ELEMENT_ANIMATION_STATUS_ARR_INDEX] == constants.ANIMATION_END) {
+    
+    let iRangeArrStart = constants.ELEMENT_RANGE_START_ARR_INDEX;  
+    let iElementArrEnd = rangeArr[iRangeArrStart] + rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX];
+    
+    //console.log('<',rangeArr[iRangeArrStart],iElementArrEnd);
+    
+    if (rangeArr[iRangeArrStart] - 1 >= constants.ELEMENT_RANGE_START) {
+    
+      elementArr[rangeArr[iRangeArrStart] - 1].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX] + "px";
+      statusArr[constants.ELEMENT_ANIMATION_STATUS_ARR_INDEX] = constants.ANIMATION_ACTIVE;
+    
+      rangeArr[iRangeArrStart] = rangeArr[iRangeArrStart] - 1;
+    } else {
+      for (let n in elementArr) {
+        if (rangeArr[constants.ELEMENT_RANGE_END_ARR_INDEX] - n > rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX]) {
+          elementArr[n].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_ARR_INDEX] + "px";
+        }
+      };
+      rangeArr[iRangeArrStart] = rangeArr[constants.ELEMENT_RANGE_END_ARR_INDEX] - rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX];
+      //console.log(rangeArr[iRangeArrStart]);
+    }
+    
 
-  //container.removeChild(elementArr[elementRangStart]);
+  }
+  
 };
 //----------------------------------------------------------------------------------
+//debug
+function updateSliderElementMarginLeft(elementArr, statusArr, paramArr, rangeArr) {
+  for (let n in elementArr) {
+    if (n <= statusArr[constants.ELEMENT_RANGE_START_ARR_INDEX] && n > statusArr[constants.ELEMENT_RANGE_START_ARR_INDEX] + rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX]) {
+      elementArr[n].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX] + "px";
+    };
+    
+    if (n < statusArr[constants.ELEMENT_RANGE_START_ARR_INDEX] ) { 
+      elementArr[n].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_ARR_INDEX] + "px";    
+    };
+    
+    if (n > statusArr[constants.ELEMENT_RANGE_START_ARR_INDEX] + rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX] ) { 
+      elementArr[n].style.marginLeft = paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX] + "px";    
+    };
+    
+  };
+};
 
 
-export function run (inData) { 
+function setParam (rangeArr, paramArr) { 
+  console.log(window.innerWidth,
+             rangeArr[constants.ELEMENT_START_ARR_INDEX],
+             rangeArr[constants.ELEMENT_RANGE_START_ARR_INDEX],
+             rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX]);
+  
+  let windowWith = window.innerWidth;
+  
+  let countInRange = rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX];
+  let marginLeftDefault = paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX];
+  let marginLeftInActive = paramArr[constants.ELEMENT_MARGIN_LEFT_ARR_INDEX];
+  
+  switch (windowWith) {
+    case 1440:
+      countInRange = 4;
+      marginLeftDefault = 0;
+      marginLeftInActive = -300;
+      break;
+      
+    case 1024:
+      countInRange = 2;
+      marginLeftDefault = 70;
+      marginLeftInActive = -300;
+      break; 
+      
+    case 768:
+      countInRange = 2;
+      marginLeftDefault = 22;
+      marginLeftInActive = -292;
+      break;
+      
+    case 425:
+      countInRange = 1;
+      marginLeftDefault = 0;
+      marginLeftInActive = -296;
+      break;     
+  }
+  
+  rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX] = countInRange;
+  paramArr[constants.ELEMENT_MARGIN_LEFT_DEFAULT_ARR_INDEX] = marginLeftDefault;
+  paramArr[constants.ELEMENT_MARGIN_LEFT_ARR_INDEX] = marginLeftInActive;
+};
+
+function fillDefaultRangeArr(rangeArr) {
+  rangeArr[constants.ELEMENT_IN_RANGE_COUNT_ARR_INDEX] = 4; 
+  rangeArr[constants.ELEMENT_RANGE_START_ARR_INDEX] = constants.ELEMENT_RANGE_START;
+  rangeArr[constants.ELEMENT_RANGE_END_ARR_INDEX] = 0;
+  rangeArr[constants.ELEMENT_START_ARR_INDEX] = 1;
+};
+
+export function run (inData, countOfElement) { 
 
   let sliderContainer = document.getElementsByClassName('filmblock-list').item(0);
-  let activeElemCount = constants.DESCTOP_ACTIVE_ELEMENT_COUNT;
-  let activeElemRangeStart = constants.DESCTOP_ACTIVE_ELEMENT_ARRAY_INDEX_START;
-  let activeElemRangeEnd = activeElemCount;
-  let sliderPoolArr = createSliderPool(activeElemCount, inData);
-  let countElementInRange = sliderPoolArr.length;
+  let sliderElementRangeArr = [];
+  fillDefaultRangeArr(sliderElementRangeArr);
   
-  fillFilmblock(sliderPoolArr, sliderContainer, activeElemRangeEnd);
+  let sliderPoolArr = createSliderPool(inData, sliderElementRangeArr, countOfElement);
+  sliderElementRangeArr[constants.ELEMENT_RANGE_END_ARR_INDEX] = sliderPoolArr.length;
+  
+  //console.log(sliderPoolArr);
+  
+  let sliderElementStatusArr = [];
+  sliderElementStatusArr[constants.ELEMENT_ANIMATION_STATUS_ARR_INDEX] = constants.ANIMATION_START_VALUE;
+  
+  let sliderElementParamArr = [];
+  setParam(sliderElementRangeArr, sliderElementParamArr);
+  
+  
+  console.log(sliderElementRangeArr, sliderElementStatusArr);
+  
+  fillFilmblock(sliderPoolArr, sliderContainer, sliderElementRangeArr ,sliderElementStatusArr);
+  
+  window.addEventListener('resize', () => {
+    setParam(sliderElementRangeArr, sliderElementParamArr);
+    updateSliderElementMarginLeft(sliderPoolArr, sliderElementStatusArr, sliderElementParamArr, sliderElementRangeArr);
+  });
   
   let sliderLeftArrow = document.getElementsByClassName('filmblock__arrow_left').item(0);
   let sliderRightArrow = document.getElementsByClassName('filmblock__arrow_right').item(0);
   // добавить анимацию
-  sliderLeftArrow.addEventListener('click' , () => leftSwipe(sliderContainer, sliderPoolArr, activeElemRangeStart, activeElemRangeEnd));
-  sliderRightArrow.addEventListener('click' , () => rightSwipe(sliderContainer, sliderPoolArr, activeElemRangeStart, activeElemRangeEnd));
+  sliderLeftArrow.addEventListener('click' , () => leftSwipe(sliderPoolArr, sliderElementRangeArr, sliderElementStatusArr, sliderElementParamArr));
+  
+  sliderRightArrow.addEventListener('click' , () => rightSwipe(sliderPoolArr, sliderElementRangeArr, sliderElementStatusArr, sliderElementParamArr));
 }
 
 
