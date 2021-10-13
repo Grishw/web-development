@@ -1,0 +1,26 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <canvas id="myCanvas" width='2000px' height="1600px"></canvas>
+    <script>
+      window.onload = () => {
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#f0d0aa';
+        ctx.arc(400, 350, 250, Math.PI, 2*Math.PI, 'clockwise')
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.moveTo(150, 650);
+        ctx.bezierCurveTo(150, 600, 150, 550, 250, 450);
+        ctx.lineTo(500, 450);
+        ctx.bezierCurveTo(500, 525, 625, 500, 650, 650);
+        ctx.strokeStyle = '#f4590c';
+        ctx.stroke();
+        
+        
+      }
+    </script>
+  </body>
+</html>
